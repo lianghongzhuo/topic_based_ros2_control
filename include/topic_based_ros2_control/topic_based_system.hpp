@@ -71,7 +71,7 @@ private:
   rclcpp::Node::SharedPtr node_;
   sensor_msgs::msg::JointState latest_joint_state_;
   bool sum_wrapped_joint_states_{ false };
-
+  double fake_pos_tracking_error_ros_ = 0.0;
   /// Use standard interfaces for joints because they are relevant for dynamic behavior
   std::array<std::string, 4> standard_interfaces_ = { hardware_interface::HW_IF_POSITION,
                                                       hardware_interface::HW_IF_VELOCITY,
@@ -80,6 +80,8 @@ private:
 
   struct MimicJoint
   {
+    std::string joint_name;
+    std::string mimicked_joint_name;
     std::size_t joint_index;
     std::size_t mimicked_joint_index;
     double multiplier = 1.0;
